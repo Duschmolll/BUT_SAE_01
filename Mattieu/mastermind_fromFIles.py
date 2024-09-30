@@ -86,6 +86,8 @@ def afficherChoixCouleur(f: pygame.Surface) -> None:
 
 def distance(a: list, b: list) -> float:
     # code a ecrire
+    
+
     return
 
 
