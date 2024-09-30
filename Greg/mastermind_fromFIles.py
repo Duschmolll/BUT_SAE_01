@@ -149,4 +149,20 @@ pygame.init()
 fenetre = pygame.display.set_mode((1000, 500))
 
 
-afficherSecret(fenetre, TabCouleur)
+def randomSecret() -> list:
+    secretCode = []
+    for i in range(7):
+        secretCode.append(TabCouleur[random.randint(0, 7)])
+    return secretCode
+
+
+game_is_running = True
+
+while game_is_running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    afficherSecret(fenetre, randomSecret())
+
+pygame.quit()
