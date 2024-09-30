@@ -145,4 +145,8 @@ def afficherResultat(f: pygame.Surface, res, ligne):
     pygame.display.update()
 
 
-afficherSecret()
+pygame.init()
+fenetre = pygame.display.set_mode((1000, 500))
+
+
+afficherSecret(fenetre, TabCouleur)
