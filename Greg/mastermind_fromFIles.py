@@ -143,3 +143,6 @@ def afficherResultat(f: pygame.Surface, res, ligne):
         i = i + 1
         j = j + 1
     pygame.display.update()
+
+
+afficherSecret()
