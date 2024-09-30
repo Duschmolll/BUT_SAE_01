@@ -85,8 +85,7 @@ def afficherChoixCouleur(f: pygame.Surface) -> None:
 
 
 def distance(a: list, b: list) -> float:
-    # code a ecrire
-    return
+    return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
 
 
 def getChoixCouleur() -> None:
@@ -146,23 +145,21 @@ def afficherResultat(f: pygame.Surface, res, ligne):
 
 
 pygame.init()
-fenetre = pygame.display.set_mode((1000, 500))
+screen = pygame.display.set_mode((1000, 500))
 
 
 def randomSecret() -> list:
     secretCode = []
-    for i in range(7):
+    for i in range(5):
         secretCode.append(TabCouleur[random.randint(0, 7)])
     return secretCode
 
 
+secretCode = randomSecret()
 game_is_running = True
 
-while game_is_running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+afficherPlateau(screen)
+afficherChoixCouleur(screen)
+afficherSecret(screen, secretCode)
 
-    afficherSecret(fenetre, randomSecret())
-
-pygame.quit()
+construireProposition(screen, 2)
