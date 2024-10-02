@@ -85,8 +85,7 @@ def afficherChoixCouleur(f: pygame.Surface) -> None:
 
 
 def distance(a: list, b: list) -> float:
-    # code a ecrire
-    return  math.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2)
+    return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
 
 
 def getChoixCouleur() -> None:
@@ -144,9 +143,44 @@ def afficherResultat(f: pygame.Surface, res, ligne):
         j = j + 1
     pygame.display.update()
 
+def randomSecret() -> list:
+    secretCode = []
+    for i in range(5):
+        secretCode.append(TabCouleur[random.randint(0, 7)])
+    return secretCode
+essaiJoueur=2
+def check()->None:
+    pgm=construireProposition(screen,essaiJoueur)
+    wellPlaced=0
+    wrongPlace=0
+    for i in range (5):
+        if secretCode[i]!=pgm[i] :
+            wrongPlace+=1
+
+        elif secretCode[i]==pgm[i]:
+            wellPlaced+=1
+    res=(wellPlaced,wrongPlace)
+    return res
+
 
 pygame.init()
-fenetre = pygame.display.set_mode((1000, 500))
+screen = pygame.display.set_mode((1000, 500))
+game_is_running = True
+while game_is_running :
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            running=False
+        afficherPlateau(screen)
+        afficherChoixCouleur(screen)
+        secretCode=randomSecret()
+        afficherSecret(screen,secretCode)
+        while construireProposition !=secretCode:
+            for i in range(1,7):
+                res=check()
+                essaiJoueur+=1
+                afficherResultat(screen,res,essaiJoueur)
+                construireProposition(screen,essaiJoueur)
+    
+pygame.QUIT
 
 
-afficherSecret(fenetre, TabCouleur)
