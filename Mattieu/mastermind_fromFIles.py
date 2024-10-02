@@ -86,9 +86,7 @@ def afficherChoixCouleur(f: pygame.Surface) -> None:
 
 def distance(a: list, b: list) -> float:
     # code a ecrire
-    
-
-    return
+    return  math.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2)
 
 
 def getChoixCouleur() -> None:
@@ -147,4 +145,8 @@ def afficherResultat(f: pygame.Surface, res, ligne):
     pygame.display.update()
 
 
-afficherSecret()
+pygame.init()
+fenetre = pygame.display.set_mode((1000, 500))
+
+
+afficherSecret(fenetre, TabCouleur)
