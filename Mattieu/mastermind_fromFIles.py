@@ -4,6 +4,8 @@ import random
 import math
 
 
+
+
 # definition de variables globales
 Noir = (0, 0, 0)
 Blanc = (255, 255, 255)
@@ -154,32 +156,35 @@ def check()->None:
     wellPlaced=0
     wrongPlace=0
     for i in range (5):
-        if secretCode[i]!=pgm[i] :
-            wrongPlace+=1
-
-        elif secretCode[i]==pgm[i]:
+        if secretCode[i]==pgm[i]:
             wellPlaced+=1
+        else:
+            for x in range(i,5):
+                if secretCode[i]==pgm[x]:
+                    wrongPlace+=1
+
+        
     res=(wellPlaced,wrongPlace)
     return res
 
 
 pygame.init()
 screen = pygame.display.set_mode((1000, 500))
+screen.fill(Blanc)
 game_is_running = True
+afficherPlateau(screen)
+afficherChoixCouleur(screen)
 while game_is_running :
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             running=False
-        afficherPlateau(screen)
-        afficherChoixCouleur(screen)
         secretCode=randomSecret()
         afficherSecret(screen,secretCode)
         while construireProposition !=secretCode:
-            for i in range(1,7):
+            for i in range(7):
                 res=check()
-                essaiJoueur+=1
                 afficherResultat(screen,res,essaiJoueur)
-                construireProposition(screen,essaiJoueur)
+                essaiJoueur+=1
     
 pygame.QUIT
 
