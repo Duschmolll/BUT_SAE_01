@@ -12,17 +12,17 @@ def randomSecret() -> list:
     return secretCode
 
 
-def checkanswerPlayer(propPlayer: tuple):
+def checkanswerPlayer(propPlayer: tuple, secret: list):
 
     wellPlaced = 0
     wrongPlaced = 0
 
     for i in range(5):
-        if secretCode[i] == propPlayer[i]:
+        if secret[i] == propPlayer[i]:
             wellPlaced += 1
         else:
-            for k in range(i, 5):
-                if secretCode[i] == propPlayer[k]:
+            for k in range(0, 5):
+                if secret[i] == propPlayer[k] and i != k:
                     wrongPlaced += 1
 
     return (wellPlaced, wrongPlaced)
@@ -34,8 +34,8 @@ def main():
     screen: pygame = pygame.display.set_mode((1000, 750))
     screen.fill(Blanc)
 
-    secretCode = randomSecret()
-    game_is_running = True
+    # secretCode = randomSecret()
+    secretCode = [Noir, Blanc, Vert, Vert, Rouge]
 
     afficherPlateau(screen)
     afficherChoixCouleur(screen)
@@ -46,7 +46,7 @@ def main():
     userTry = 2
 
     while not secretBroken and not gameEnded:
-        check = checkanswerPlayer(construireProposition(screen, userTry))
+        check = checkanswerPlayer(construireProposition(screen, userTry), secretCode)
         afficherResultat(screen, check, userTry)
         if userTry == 17:
             gameEnded == True
