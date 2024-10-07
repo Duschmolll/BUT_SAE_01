@@ -2,7 +2,8 @@ import pygame
 import random
 import math
 
-fenetre=pygame.display.set_mode((1000,800))
+
+
 
 # definition de variables globales
 Noir = (0, 0, 0)
@@ -19,11 +20,13 @@ Marron = (160, 60, 0)
 
 TabCouleur = [Noir, Blanc, Gris, Bleu, Rouge, Vert, Orange, Rose]
 
+
 def afficherSecret(laFenetre: pygame.Surface, leSecret: list) -> None:
     for i in range(len(leSecret)):
         pygame.draw.circle(laFenetre, leSecret[i], [320 + 40 * i, 20], 15)
-        pygame.draw.circle(laFenetre, Blanc, [320 + 40 * i, 20], 15, 1)
+        pygame.draw.circle(laFenetre, Noir, [320 + 40 * i, 20], 15, 1)
     pygame.display.update()
+
 
 def afficherCombinaison(
     laFenetre: pygame.Surface, laCombinaison: list, numLigne: int
@@ -39,39 +42,40 @@ def afficherCombinaison(
             laFenetre, laCombinaison[i], [320 + 40 * i, 40 + 40 * (numLigne - 1)], 15
         )
         pygame.draw.circle(
-            laFenetre, Blanc, [320 + 40 * i, 40 + 40 * (numLigne - 1)], 15, 1
+            laFenetre, Noir, [320 + 40 * i, 40 + 40 * (numLigne - 1)], 15, 1
         )
 
     pygame.display.update()
-def distance(a: list, b: list) -> float:
-    return math.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2)
+
 
 def afficherPlateau(f: pygame.Surface) -> None:
-     pygame.draw.rect(f, Marron, [300, 0, 200, 40])
-     for i in range(5):
-         pygame.draw.rect(f, Noir, [300 + 40 * i, 0, 40, 40], 1)
-         pygame.draw.rect(f, Marron, [300, 60, 200, 40 * 15])
-         pygame.draw.rect(f, Marron, [520, 60, 40, 40 * 15])
+    pygame.draw.rect(f, Marron, [300, 0, 200, 40])
+    for i in range(5):
+        pygame.draw.rect(f, Noir, [300 + 40 * i, 0, 40, 40], 1)
+    pygame.draw.rect(f, Marron, [300, 60, 200, 40 * 15])
+    pygame.draw.rect(f, Marron, [520, 60, 40, 40 * 15])
 
-     for l in range(15):
+    for l in range(15):
         for i in range(5):
             pygame.draw.rect(f, Noir, [300 + 40 * i, 60 + 40 * l, 40, 40], 1)
-        pygame.draw.rect(f, Marron, [520, 60 + 40 * l, 40, 40], 1)
+        pygame.draw.rect(f, Noir, [520, 60 + 40 * l, 40, 40], 1)
 
-     text1 = "nb noir = nb mal placé"
-     text2 = "nb blanc = nb bien placé"
-     text3 = "choix pion"
-     text4 = "retirer dernier pion"
-     myfont = pygame.font.SysFont("monospace", 15)
-     label1 = myfont.render(text1, 1, Noir)
-     label2 = myfont.render(text2, 1, Noir)
-     label3 = myfont.render(text3, 1, Noir)
-     label4 = myfont.render(text4, 1, Noir)
-     f.blit(label3, (100, 200))
-     f.blit(label4, (100, 430))
-     f.blit(label1, (570, 200))
-     f.blit(label2, (570, 220))
-     pygame.display.update()
+    text1 = "nb noir = nb mal placé"
+    text2 = "nb blanc = nb bien placé"
+    text3 = "choix pion"
+    text4 = "retirer dernier pion"
+    myfont = pygame.font.SysFont("monospace", 15)
+    label1 = myfont.render(text1, 1, Noir)
+    label2 = myfont.render(text2, 1, Noir)
+    label3 = myfont.render(text3, 1, Noir)
+    label4 = myfont.render(text4, 1, Noir)
+    f.blit(label3, (100, 200))
+    f.blit(label4, (100, 430))
+    f.blit(label1, (570, 200))
+    f.blit(label2, (570, 220))
+    pygame.display.update()
+
+
 def afficherChoixCouleur(f: pygame.Surface) -> None:
     for i in range(len(TabCouleur)):
         pygame.draw.circle(f, TabCouleur[i], [75, 80 + 40 * i], 15)
@@ -79,6 +83,27 @@ def afficherChoixCouleur(f: pygame.Surface) -> None:
     pygame.draw.circle(f, Marron, [75, 80 + 40 * 9], 15)
     pygame.draw.circle(f, Noir, [75, 80 + 40 * 9], 15, 1)
     pygame.display.update()
+
+
+def distance(a: list, b: list) -> float:
+    return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
+
+
+def getChoixCouleur() -> None:
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                print("c'est fini!!!")
+                pygame.quit()
+            if event.type == pygame.MOUSEBUTTONUP:
+                positionSouris = pygame.mouse.get_pos()
+                if distance(positionSouris, [75, 80 + 40 * 9]) < 15:
+                    return None
+                for i in range(len(TabCouleur)):
+                    if distance(positionSouris, [75, 80 + 40 * i]) < 15:
+                        return TabCouleur[i]
+
+
 def construireProposition(f: pygame.Surface, ligne: int) -> list:
     proposition = []
 
@@ -96,19 +121,8 @@ def construireProposition(f: pygame.Surface, ligne: int) -> list:
         pygame.display.update()
 
     return proposition
-def getChoixCouleur() -> None:
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                print("c'est fini!!!")
-                pygame.quit()
-            if event.type == pygame.MOUSEBUTTONUP:
-                positionSouris = pygame.mouse.get_pos()
-                if distance(positionSouris, [75, 80 + 40 * 9]) < 15:
-                    return None
-                for i in range(len(TabCouleur)):
-                    if distance(positionSouris, [75, 80 + 40 * i]) < 15:
-                        return TabCouleur[i]
+
+
 def afficherResultat(f: pygame.Surface, res, ligne):
     x = 520
     y = 20 + 40 * (ligne - 1)
@@ -129,22 +143,3 @@ def afficherResultat(f: pygame.Surface, res, ligne):
         i = i + 1
         j = j + 1
     pygame.display.update()
-leSecret=[]
-for i in range(5):
-    r = random.randint(0,7)
-    leSecret.append(TabCouleur[r])
-    print(leSecret)
-
-pygame.init()
-fenetre=pygame.display.set_mode((1000,800))
-running=True
-while running:
-    for event in pygame.event.get():
-        if event.type==pygame.QUIT:
-            running=False
-        afficherPlateau(fenetre)
-        afficherSecret(fenetre,leSecret)
-        getChoixCouleur()
-        afficherCombinaison(fenetre,leSecret,15)
-
-pygame.QUIT()
