@@ -11,6 +11,7 @@ def testerChoixPlayer():
     propPlayer2 = [mm.Gris, mm.Blanc, mm.Noir, mm.Vert, mm.Vert]
     propPlayer3 = [mm.Orange, mm.Orange, mm.Orange, mm.Orange, mm.Vert]
     propPlayer4 = [mm.Rouge, mm.Rouge, mm.Rouge, mm.Rouge, mm.Rouge]
+    propPlayer5 = [mm.Blanc, mm.Noir, mm.Rouge, mm.Vert, mm.Vert]
 
     result = main.checkanswerPlayer(propPlayer1, secretCode)
     if result == (5, 0):
@@ -35,6 +36,12 @@ def testerChoixPlayer():
         print("Test 4 OK")
     else:
         print("Test 4 KAPUT: ", result, "| Expected : (1, 0)")
+
+    result = main.checkanswerPlayer(propPlayer4, secretCode)
+    if main.checkanswerPlayer(propPlayer5, secretCode) == (1, 4):
+        print("Test 5 OK")
+    else:
+        print("Test 5 KAPUT: ", result, "| Expected : (1, 4")
 
 
 # Test de la fonction distance.

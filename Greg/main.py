@@ -63,35 +63,40 @@ def main():
     secretBroken = False
     gameEnded = False
     userTry = 2
-
-    # Boucle pour continuer à demander une proposition si ne joueurs est à moins de 15 essaie et que le code n'as pas été trouvé.
-    while not secretBroken and not gameEnded:
-        check = checkanswerPlayer(mm.construireProposition(screen, userTry), secretCode)
-        mm.afficherResultat(screen, check, userTry)
-        if userTry == 17:
-            gameEnded == True
-        elif check[0] == 5:
-            secretBroken = True
-        else:
-            userTry += 1
-            print(userTry)
-
-    # Savoir quoi afficher lors de la sortie de la boucle précédente. Perdu ou Gagner.
-    if secretBroken == True:
-        print("GG, vous avez trouvé la combinaison en ", userTry - 1, " coups !")
-        # afficherSecret(screen, secretCode)
-    elif gameEnded == True:
-        print("Perdu, vous dépassé vos 15 coups")
-        # afficherSecret(screen, secretCode)
-
-    # Laisser tourner Pygame tant que le joueurs n'as pas décidé de quitter le jeu.
     running = True
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 print("c'est fini!!!")
-                pygame.quit()
                 running = False
+                pygame.quit()
+        print(running)
+        print(userTry)
+
+        if not secretBroken and not gameEnded and running:
+            propJoueur = mm.construireProposition(screen, userTry)
+            check = checkanswerPlayer(propJoueur, secretCode)
+            mm.afficherResultat(screen, check, userTry)
+            if userTry == 16:
+                gameEnded = True
+            elif check[0] == 5:
+                secretBroken = True
+            else:
+                userTry += 1
+
+        # Savoir quoi afficher lors de la sortie de la boucle précédente. Perdu ou Gagner.
+        if secretBroken == True:
+            print(
+                "GG, vous avez trouvé la combinaison en ",
+                userTry - 1,
+                " coups !",
+            )
+            # afficherSecret(screen, secretCode)
+
+        elif gameEnded == True:
+            print("Perdu, vous dépassé vos 15 coups")
+            # afficherSecret(screen, secretCode)
 
 
 if __name__ == "__main__":
