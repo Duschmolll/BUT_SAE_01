@@ -1,4 +1,6 @@
-from mm import *
+import mm
+import random
+import pygame
 
 # Global Var:
 secretCode = []
@@ -7,7 +9,7 @@ secretCode = []
 def randomSecret() -> list:
 
     for i in range(5):
-        secretCode.append(TabCouleur[random.randint(0, 7)])
+        secretCode.append(mm.TabCouleur[random.randint(0, 7)])
     return secretCode
 
 
@@ -15,18 +17,25 @@ def checkanswerPlayer(propPlayer: tuple, secret: list):
 
     wellPlaced = 0
     wrongPlaced = 0
-    alreadyCheck = []
+    alreadyCheckSecret = []
+    alreadyCheckPlayer = []
 
     for i in range(5):
         if secret[i] == propPlayer[i]:
             wellPlaced += 1
-            alreadyCheck.append(i)
+            alreadyCheckSecret.append(i)
+            alreadyCheckPlayer.append(i)
 
     for i in range(5):
         for k in range(0, 5):
-            if secret[i] == propPlayer[k] and k not in alreadyCheck:
+            if (
+                secret[i] == propPlayer[k]
+                and i not in alreadyCheckSecret
+                and k not in alreadyCheckPlayer
+            ):
                 wrongPlaced += 1
-                alreadyCheck.append(k)
+                alreadyCheckSecret.append(i)
+                alreadyCheckPlayer.append(k)
 
     return (wellPlaced, wrongPlaced)
 
@@ -35,22 +44,22 @@ def main():
 
     pygame.init()
     screen: pygame = pygame.display.set_mode((1000, 750))
-    screen.fill(Blanc)
+    screen.fill(mm.Blanc)
 
     # secretCode = randomSecret()
-    secretCode = [Noir, Blanc, Vert, Vert, Rouge]
+    secretCode = [mm.Noir, mm.Blanc, mm.Vert, mm.Vert, mm.Rouge]
 
-    afficherPlateau(screen)
-    afficherChoixCouleur(screen)
-    afficherSecret(screen, secretCode)
+    mm.afficherPlateau(screen)
+    mm.afficherChoixCouleur(screen)
+    mm.afficherSecret(screen, secretCode)
 
     secretBroken = False
     gameEnded = False
     userTry = 2
 
     while not secretBroken and not gameEnded:
-        check = checkanswerPlayer(construireProposition(screen, userTry), secretCode)
-        afficherResultat(screen, check, userTry)
+        check = checkanswerPlayer(mm.construireProposition(screen, userTry), secretCode)
+        mm.afficherResultat(screen, check, userTry)
         if userTry == 17:
             gameEnded == True
         elif check[0] == 5:
