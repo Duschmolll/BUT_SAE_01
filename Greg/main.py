@@ -1,7 +1,6 @@
 from mm import *
 
 # Global Var:
-debug = False
 secretCode = []
 
 
@@ -16,14 +15,18 @@ def checkanswerPlayer(propPlayer: tuple, secret: list):
 
     wellPlaced = 0
     wrongPlaced = 0
+    alreadyCheck = []
 
     for i in range(5):
         if secret[i] == propPlayer[i]:
             wellPlaced += 1
-        else:
-            for k in range(0, 5):
-                if secret[i] == propPlayer[k] and i != k:
-                    wrongPlaced += 1
+            alreadyCheck.append(i)
+
+    for i in range(5):
+        for k in range(0, 5):
+            if secret[i] == propPlayer[k] and k not in alreadyCheck:
+                wrongPlaced += 1
+                alreadyCheck.append(k)
 
     return (wellPlaced, wrongPlaced)
 
@@ -73,5 +76,4 @@ def main():
 
 
 if __name__ == "__main__":
-    if not debug:
-        main()
+    main()
