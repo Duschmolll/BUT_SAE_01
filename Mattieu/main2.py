@@ -21,11 +21,8 @@ def check(laProposition:list)->None:#Fonction vérifiant  le nb de pion bien pla
     for i in range (5):
         if secretCode[i]==laProposition[i]:
             wellPlaced+=1
-        elif secretCode[i]==laProposition[i]:
-            wrongPlace+=1
-        else:
-            for x in range(i,5):
-                if secretCode[i]==laProposition[x]:
+            for k in range (i+1,5):
+                if secretCode[i]==laProposition[k]:
                     wrongPlace+=1
     return (wellPlaced,wrongPlace)
 
