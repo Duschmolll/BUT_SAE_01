@@ -3,10 +3,11 @@ import mm
 
 
 def testerVerifiaction():
-    secretCode=[mm.Noir,mm.Blanc,mm.Bleu,mm.Vert,mm.Vert]
+    main2.secretCode=[mm.Noir,mm.Blanc,mm.Bleu,mm.Vert,mm.Vert]
     laProposition=[mm.Blanc,mm.Noir,mm.Bleu,mm.Marron,mm.Rose]
-    main2.check(laProposition)
-    if(laProposition, secretCode) == (1,2):
+    print( main2.check(laProposition))
+    
+    if main2.check(laProposition) == (1,2):
         print("bravo tu vois les couleurs")
     else:
         print("je suis daltonien")
