@@ -5,14 +5,10 @@ secretCode = []
 testprop=[Vert,Vert,Vert,Blanc,Vert]
 essaiJoueur:int=2
 
-
-
-
 def randomSecret() -> list:#Fonction permettant de créer la combinaison secrétes de pion a trouver par le joueur
     for i in range(5):
         secretCode.append(TabCouleur[random.randint(0, 7)])
     return secretCode
-
 
 def check(laProposition:list)->None:#Fonction vérifiant  le nb de pion bien placé ou non entre la combinaison créer par le joueur et le code Secret
     wellPlaced=0
@@ -43,8 +39,6 @@ def check(laProposition:list)->None:#Fonction vérifiant  le nb de pion bien pla
                 k+=1
         i+=1
         
-                
-
     return (wellPlaced,wrongPlace)
 
 def main():
@@ -56,7 +50,7 @@ def main():
     print(secretCode)
     afficherPlateau(screen)
     afficherChoixCouleur(screen)
-    afficherSecret(screen,secretCode)
+    #afficherSecret(screen,secretCode)
     essaiJoueur=2
     while game_is_running :
         for event in pygame.event.get():
