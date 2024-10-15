@@ -44,6 +44,18 @@ def checkanswerPlayer(propPlayer: tuple, secret: list):
     return (wellPlaced, wrongPlaced)
 
 
+# afficher Fin de partie:
+
+
+def afficherFin(f: pygame.Surface, text: str, fontSize: int) -> None:
+    text01 = text
+    myfont = pygame.font.SysFont("monospace", fontSize)
+    label1 = myfont.render(text01, 1, mm.Noir)
+
+    f.blit(label1, (150, 700))
+    pygame.display.update()
+
+
 # Fonction principale du programme.
 def main():
     # Mise en route de pygame.
@@ -64,15 +76,13 @@ def main():
     gameEnded = False
     userTry = 2
     running = True
-
+    doItOnce = False
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 print("c'est fini!!!")
                 running = False
                 pygame.quit()
-        print(running)
-        print(userTry)
 
         if not secretBroken and not gameEnded and running:
             propJoueur = mm.construireProposition(screen, userTry)
@@ -86,17 +96,19 @@ def main():
                 userTry += 1
 
         # Savoir quoi afficher lors de la sortie de la boucle précédente. Perdu ou Gagner.
-        if secretBroken == True:
-            print(
-                "GG, vous avez trouvé la combinaison en ",
-                userTry - 1,
-                " coups !",
+        if secretBroken == True and not doItOnce:
+            text = (
+                "Bravo ! Vous avez trouvé la combinaison en "
+                + str(userTry - 1)
+                + " coups !"
             )
-            # afficherSecret(screen, secretCode)
+            afficherFin(screen, text, 18)
+            doItOnce = True
 
-        elif gameEnded == True:
-            print("Perdu, vous dépassé vos 15 coups")
-            # afficherSecret(screen, secretCode)
+        elif gameEnded == True and not doItOnce:
+            text = "Perdu, vous avez dépassé vos 15 coups."
+            afficherFin(screen, text, 18)
+            doItOnce = True
 
 
 if __name__ == "__main__":
