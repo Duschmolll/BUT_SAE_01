@@ -1,13 +1,25 @@
 import main2
 import mm
 
-
 def testerVerifiaction():
     main2.secretCode=[mm.Noir,mm.Blanc,mm.Bleu,mm.Vert,mm.Vert]
-    laProposition=[mm.Blanc,mm.Noir,mm.Bleu,mm.Marron,mm.Rose]
-    print( main2.check(laProposition))
-    
-    if main2.check(laProposition) == (1,2):
+    laProposition1=[mm.Blanc,mm.Noir,mm.Bleu,mm.Marron,mm.Rose]
+    laProposition2=[mm.Noir,mm.Noir,mm.Bleu,mm.Marron,mm.Rose]
+    laProposition3=[mm.Noir,mm.Bleu,mm.Blanc,mm.Vert,mm.Noir]
+    laProposition4=[mm.Noir,mm.Blanc,mm.Blanc,mm.Blanc,mm.Noir]
+    if main2.check(laProposition2) == (2,0):
+        print("bravo tu vois les couleurs")
+    else:
+        print("je suis daltonien")
+    if main2.check(laProposition1) == (1,2):
+        print("bravo tu vois les couleurs")
+    else:
+        print("je suis daltonien")
+    if main2.check(laProposition3) == (2,2):
+        print("bravo tu vois les couleurs")
+    else:
+        print("je suis daltonien")
+    if main2.check(laProposition4) == (2,0):
         print("bravo tu vois les couleurs")
     else:
         print("je suis daltonien")

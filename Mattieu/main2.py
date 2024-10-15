@@ -11,9 +11,10 @@ def randomSecret() -> list:#Fonction permettant de créer la combinaison secrét
     return secretCode
 
 def check(laProposition:list)->None:#Fonction vérifiant  le nb de pion bien placé ou non entre la combinaison créer par le joueur et le code Secret
+    
     wellPlaced=0
     wrongPlace=0
-    secretCodeCopy=secretCode.copy()
+    secretCodeCopy=secretCode.copy()            #VARIABLES LOCALES
     propCopy=laProposition.copy()
 
     print(len(secretCodeCopy))
@@ -41,29 +42,62 @@ def check(laProposition:list)->None:#Fonction vérifiant  le nb de pion bien pla
         
     return (wellPlaced,wrongPlace)
 
+def afficherFin(f: pygame.Surface,txt:str,fontSize) -> None: #Fonction permettant d'afficher le message de fin de partie 
+    text01 = txt
+    myfont = pygame.font.SysFont("monospace", fontSize)    
+    label1 = myfont.render(text01, 1, Noir)
+    f.blit(label1, (150, 710))
+    pygame.display.update()
+
 def main():
+
     pygame.init()
-    screen:pygame = pygame.display.set_mode((1000, 750))
+    screen:pygame = pygame.display.set_mode((1000, 750))#AFFICHAGE
     screen.fill(Blanc)
+
     game_is_running = True
+    secretBroken=False          #VARIABLES
+    gameEnded=False
     secretCode = randomSecret()
-    print(secretCode)
-    afficherPlateau(screen)
-    afficherChoixCouleur(screen)
-    #afficherSecret(screen,secretCode)
     essaiJoueur=2
+    alrDon=False
+
+    print(secretCode)
+    afficherPlateau(screen)                 #AFFICHAGE
+    afficherChoixCouleur(screen)
+    afficherSecret(screen,secretCode)
+    
     while game_is_running :
         for event in pygame.event.get():
             if event.type==pygame.QUIT :
                 game_is_running=False
-                pygame.quit()
-        prop = construireProposition(screen,essaiJoueur)
-        print(check(prop))
-        afficherResultat(screen,check(prop),essaiJoueur)
-        essaiJoueur+=1
-        pygame.display.update()       
-        if prop == secretCode:
-            afficherResultat(screen,check(prop),essaiJoueur)
+                pygame.quit()       
+        if not secretBroken and not gameEnded and game_is_running:
+            laproposition = construireProposition(screen,essaiJoueur)
+            checkResultat = check(laproposition)
+            afficherResultat(screen,checkResultat,essaiJoueur)
+           
+            if essaiJoueur == 16:
+                gameEnded = True
+            elif checkResultat[0] == 5:
+                secretBroken = True
+            else:
+                essaiJoueur += 1   
+        if secretBroken == True and not alrDon:
+            text = (
+                "Bravo ! Vous avez trouvé la combinaison en "  #alrDon permet qui si le if a déja était fais une fois de ne plus le faire 
+                + str(essaiJoueur - 1)
+                + " coups !"
+            )
+            afficherFin(screen, text, 18)
+            alrDon = True
+
+        elif gameEnded == True and not alrDon:
+            text = "Perdu, vous avez dépassé vos 15 coups." 
+            afficherFin(screen, text, 18)
+            alrDon = True
+            
+
 
 if __name__=="__main__":
     main()
