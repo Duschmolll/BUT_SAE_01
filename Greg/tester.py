@@ -20,56 +20,62 @@ def testerChoixPlayer():
         print("Test 1 KAPUT: ", result, "| Expected : (5, 0)")
 
     result = main.checkanswerPlayer(propPlayer2, secretCode)
-    if main.checkanswerPlayer(propPlayer2, secretCode) == (2, 2):
+    if result == (2, 2):
         print("Test 2 OK")
     else:
         print("Test 2 KAPUT: ", result, "| Expected : (2, 2)")
 
     result = main.checkanswerPlayer(propPlayer3, secretCode)
-    if main.checkanswerPlayer(propPlayer3, secretCode) == (0, 1):
+    if result == (0, 1):
         print("Test 3 OK")
     else:
         print("Test 3 KAPUT: ", result, "| Expected : (0, 1)")
 
     result = main.checkanswerPlayer(propPlayer4, secretCode)
-    if main.checkanswerPlayer(propPlayer4, secretCode) == (1, 0):
+    if result == (1, 0):
         print("Test 4 OK")
     else:
         print("Test 4 KAPUT: ", result, "| Expected : (1, 0)")
 
-    result = main.checkanswerPlayer(propPlayer4, secretCode)
-    if main.checkanswerPlayer(propPlayer5, secretCode) == (1, 4):
+    result = main.checkanswerPlayer(propPlayer5, secretCode)
+    if result == (1, 4):
         print("Test 5 OK")
     else:
-        print("Test 5 KAPUT: ", result, "| Expected : (1, 4")
+        print("Test 5 KAPUT: ", result, "| Expected : (1, 4)")
 
 
 # Test de la fonction distance.
 def testDistance():
-    if mm.distance([0, 0], [1, 1]) == math.sqrt(2):
+    result = mm.distance([0, 0], [1, 1])
+    if result == math.sqrt(2):
         print("Test MM 01 OK")
     else:
-        print("Test MM 01 KAPUT")
-    if mm.distance([1, 1], [1, 1]) == math.sqrt(0):
+        print("Test MM 01 KAPUT: ", result, "| Expected :", math.sqrt(2))
+    result = mm.distance([1, 1], [1, 1])
+    if result == math.sqrt(0):
         print("Test MM 02 OK")
     else:
-        print("Test MM 02 KAPUT")
-    if mm.distance([0, 0], [-1, -1]) == math.sqrt(2):
+        print("Test MM 02 KAPUT", result, "| Expected :", math.sqrt(0))
+    result = mm.distance([0, 0], [-1, -1])
+    if result == math.sqrt(2):
         print("Test MM 03 OK")
     else:
-        print("Test MM 03 KAPUT")
-    if mm.distance([1, 1], [0, 0]) == math.sqrt(2):
+        print("Test MM 03 KAPUT", result, "| Expected :", math.sqrt(2))
+    result = mm.distance([1, 1], [0, 0])
+    if result == math.sqrt(2):
         print("Test MM 04 OK")
     else:
-        print("Test MM 04 KAPUT")
-    if mm.distance([0, 0], [0, 0]) == math.sqrt(0):
+        print("Test MM 04 KAPUT", result, "| Expected :", math.sqrt(2))
+    result = mm.distance([0, 0], [0, 0])
+    if result == math.sqrt(0):
         print("Test MM 05 OK")
     else:
-        print("Test MM 05 KAPUT")
-    if mm.distance([-1, -1], [-1, -1]) == 0:
+        print("Test MM 05 KAPUT", result, "| Expected :", math.sqrt(0))
+    result = mm.distance([-1, -1], [-1, -1])
+    if result == 0:
         print("Test MM 06 OK")
     else:
-        print("Test MM 06 KAPUT")
+        print("Test MM 06 KAPUT", result, "| Expected :", 0)
 
 
 # Test que la randomisation du code secret prends bien toutes les couleurs possible.

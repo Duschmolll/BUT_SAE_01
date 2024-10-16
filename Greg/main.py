@@ -45,15 +45,13 @@ def checkanswerPlayer(propPlayer: tuple, secret: list):
 
 
 # afficher Fin de partie:
-
-
 def afficherFin(f: pygame.Surface, text: str, fontSize: int) -> None:
-    text01 = text
     myfont = pygame.font.SysFont("monospace", fontSize)
-    label1 = myfont.render(text01, 1, mm.Noir)
+    label = myfont.render(text, 1, mm.Noir)
 
-    f.blit(label1, (150, 700))
+    f.blit(label, (150, 700))
     pygame.display.update()
+    mm.afficherSecret(f, secretCode)
 
 
 # Fonction principale du programme.
@@ -63,13 +61,12 @@ def main():
     screen: pygame = pygame.display.set_mode((1000, 750))
     screen.fill(mm.Blanc)
 
-    # secretCode = randomSecret()
-    secretCode = [mm.Noir, mm.Blanc, mm.Vert, mm.Vert, mm.Rouge]
+    secretCode = randomSecret()
+    # secretCode = [mm.Noir, mm.Blanc, mm.Vert, mm.Vert, mm.Rouge]
 
     # Mise en place du GUI en utilisant les fonction de mm.py
     mm.afficherPlateau(screen)
     mm.afficherChoixCouleur(screen)
-    mm.afficherSecret(screen, secretCode)
 
     # Variable
     secretBroken = False
